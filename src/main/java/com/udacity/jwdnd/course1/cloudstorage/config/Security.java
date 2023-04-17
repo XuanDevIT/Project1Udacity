@@ -11,7 +11,7 @@ public class Security extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/signup","login","/css/**", "/js/**").permitAll()
+                .antMatchers("/","/signup","/login","/css/**", "/js/**", "/h2-console").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -20,5 +20,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().successForwardUrl("/home").and()
             .logout().permitAll();
+                //.and()
+            //.exceptionHandling().accessDeniedPage("/result");
     }
 }
