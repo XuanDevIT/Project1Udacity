@@ -1,28 +1,17 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
+import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
-import com.udacity.jwdnd.course1.cloudstorage.model.User;
 @Mapper
 public interface UserMapper {
-    @Select("SELECT * FROM users WHERE userid = #{id}")
-    User getUserById(int id);
+	@Select("SELECT * FROM USERS WHERE username = #{username}")
+	User getUser(String username);
 
-    @Select("SELECT * FROM users")
-    List<User> getAllUser();
-
-    @Insert({"INSERT INTO users ( firstName,salt, lastName, username, password) VALUES ( #{firstName},#{salt} , #{lastName}, #{username}, #{password})"})
-    void insertUser(User user);
-
-    @Update("UPDATE users SET firstName=#{user.firstName}, salt=#{user.salt}, lastName=#{user.lastName}, username=#{user.username}, password=#{user.password} WHERE userid=#{id}")
-    void updateUser(int id, User user);
-
-    @Delete("DELETE FROM users WHERE userid=#{id}")
-    void deleteUser(int id);
+	@Insert("INSERT INTO USERS(username, salt, password, firstname, lastname) VALUES(#{username}, #{salt}, #{password}, #{firstName}, #{lastName})")
+	@Options(useGeneratedKeys = true, keyProperty = "userId")
+	int insert(User user);
 }

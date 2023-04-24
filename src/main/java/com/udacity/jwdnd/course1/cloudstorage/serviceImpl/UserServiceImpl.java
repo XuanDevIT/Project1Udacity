@@ -7,13 +7,10 @@ import java.util.List;
 
 @Service
 public interface UserServiceImpl {
-    public List<User> findAll();
 
-    User getById(int id);
+    public boolean isUsernameAvailable(String username);
 
-    public void save(User user);
+    public int createUser(User user);
 
-    public void delete(int id);
-
-    public void update(int id, User user);
+    public User getUser(String username);
 }

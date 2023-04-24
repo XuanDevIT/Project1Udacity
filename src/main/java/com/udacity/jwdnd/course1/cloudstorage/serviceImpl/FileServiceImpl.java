@@ -1,6 +1,8 @@
 package com.udacity.jwdnd.course1.cloudstorage.serviceImpl;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
+import com.udacity.jwdnd.course1.cloudstorage.model.FileForm;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,11 +11,15 @@ import java.util.List;
 
 @Service
 public interface FileServiceImpl {
-    public List<File> getList();
 
-    public File getFileById(int id);
+    public File getFileByFileId(Integer fileId);
 
-    public void save(MultipartFile file, int id) throws IOException;
+    public void deleteFileByFileId(Integer fileId);
 
-    public void delete(int id);
+    public List<File> getAllFilesByUserId(Authentication authentication);
+
+    public int uploadFile(Authentication authentication, FileForm fileForm) throws IOException;
+
+
+
 }

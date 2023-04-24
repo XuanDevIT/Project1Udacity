@@ -1,41 +1,39 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
-import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
-import com.udacity.jwdnd.course1.cloudstorage.model.User;
-import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.security.SecureRandom;
+import java.util.Base64;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
+import com.udacity.jwdnd.course1.cloudstorage.model.User;
 
 @Service
-public class UserService implements UserServiceImpl {
+public class UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+    private final HashService hashService;
 
-    @Override
-    public List<User> findAll() {
-        return userMapper.getAllUser();
+    public UserService(UserMapper userMapper, HashService hashService) {
+        this.userMapper = userMapper;
+        this.hashService = hashService;
     }
 
-    @Override
-    public User getById(int id) {
-        return userMapper.getUserById(id);
+    public boolean isUsernameAvailable(String username) {
+        return userMapper.getUser(username) == null;
     }
 
-    @Override
-    public void save(User user) {
-        userMapper.insertUser(user);
+    public int createUser(User user) {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        String encodedSalt = Base64.getEncoder().encodeToString(salt);
+        String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
+        return userMapper.insert(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstName(),
+                user.getLastName()));
     }
 
-    @Override
-    public void delete(int id) {
-        userMapper.deleteUser(id);
-    }
-
-    @Override
-    public void update(int id, User user) {
-         userMapper.updateUser(id, user);
+    public User getUser(String username) {
+        return userMapper.getUser(username);
     }
 }

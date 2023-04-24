@@ -11,48 +11,39 @@
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container justify-content-center w-50 p-3" style="background-color: #eeeeee; margin-top: 5em;">
             <div class="form-group">
-                <label><a href="/login">Back to Login</a></label>
+                <label><a th:href="@{/login}">Back to Login</a></label>
             </div>
 
             <h1 class="display-5">Sign Up</h1>
-            <form action="#" th:object="${user}" th:action="@{/add-users}" method="POST">
-<!--                <input type="hidden" th:name="_method" th:value="post" />-->
-                <div id="success-msg" class="alert alert-dark" hidden>
-                    You successfully signed up! Please continue to the <a>login</a> page.
+            <form action="#" th:action="@{/signup}" method="POST">
+                <div id="success-msg" class="alert alert-dark" th:if="${signupSuccess}">
+                    You successfully signed up! Please continue to the <a id="login-link" th:href="@{/login}">login</a> page.
                 </div>
-                <div class="alert alert-danger" hidden>
-                    <span >Example Signup Error Message</span>
+                <div class="alert alert-danger" th:if="${signupError}">
+                    <span th:text="${signupError}"></span>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputFirstName">First Name</label>
-                        <input type="text" th:field="*{firstName}" class="form-control" id="inputFirstName" th:maxlength="${20}" required>
-<!--                        <input type="input" th:field="*{firstName}" class="form-control" id="inputFirstName" placeholder="Enter First Name" maxlength="20" required>-->
+                        <input type="text" name="firstName" class="form-control" id="inputFirstName" placeholder="Enter First Name" maxlength="20" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputLastName">Last Name</label>
-                        <input type="text" th:field="*{lastName}" class="form-control" id="inputLastName" th:maxlength="${20}" required>
-
-<!--                        <input type="input" th:field="*{lastName}" class="form-control" id="inputLastName" placeholder="Enter Last Name" maxlength="20" required>-->
+                        <input type="text" name="lastName" class="form-control" id="inputLastName" placeholder="Enter Last Name" maxlength="20" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputUsername">Username</label>
-                        <input type="text" th:field="*{username}" class="form-control" id="inputUsername" th:maxlength="${20}" required>
-<!--                        <input type="input" th:field="*{username}" class="form-control" id="inputUsername" placeholder="Enter Username" maxlength="20" required>-->
+                        <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Enter Username" maxlength="20" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassword">Password</label>
-                        <input type="password" th:field="*{password}" class="form-control" id="inputPassword" th:maxlength="${20}" required>
-<!--                        <input type="password" th:field="*{password}" class="form-control" id="inputPassword" placeholder="Enter Password" maxlength="20" required>-->
+                        <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Enter Password" maxlength="20" required>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" id="buttonSignUp" th:name="submit">Sign Up</button>
-
-<!--                <button type="submit" class="btn btn-primary" id="buttonSignUp">Sign Up</button>-->
+                <button type="submit" class="btn btn-primary" id="buttonSignUp">Sign Up</button>
             </form>
-
         </div>
     </body>
 </html>
