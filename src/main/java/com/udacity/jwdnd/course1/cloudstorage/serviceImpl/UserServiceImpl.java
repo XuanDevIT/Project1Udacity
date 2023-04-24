@@ -12,7 +12,7 @@ public interface UserServiceImpl {
 
     public boolean isUsernameAvailable(String username);
 
-    public int createUser(User user);
+    public int saveUser(User user);
 
     public User getUser(String username);
 }

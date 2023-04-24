@@ -3,7 +3,6 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileForm;
 import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.FileServiceImpl;
-import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -26,26 +25,24 @@ public class FileController {
 
 	@PostMapping("/upload")
 	public String uploadFile(Authentication authentication, FileForm fileForm, Model model) throws SizeLimitExceededException {
-		// Check the upload file is empty
 		if (fileForm.getFileData().isEmpty()) {
 			model.addAttribute("uploadError", true);
 			model.addAttribute("uploadErrorMessage", "Please choose your file!");
 			return "result";
 		}
-		
-		// Upload file progress
-		try {
-			int rowsAdded = fileService.uploadFile(authentication, fileForm);
 
-			if (rowsAdded == 0) {
+		try {
+			int rowsAdd = fileService.uploadFile(authentication, fileForm);
+
+			if (rowsAdd == 0) {
 				model.addAttribute("uploadFailed", true);
-				model.addAttribute("uploadFailedMessage", "File name is already existed.");
+				model.addAttribute("uploadFailedMessage", "File name has exist.");
 			} else {
 				model.addAttribute("uploadSucceeded", true);
 			}
 		} catch (IOException e) {
 			model.addAttribute("uploadError", true);
-			model.addAttribute("uploadErrorMessage", "There is something goes wrong in the uploading process");
+			model.addAttribute("uploadErrorMessage", "File upload error");
 			e.printStackTrace();
 		}
 

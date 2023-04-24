@@ -2,7 +2,6 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,29 +9,25 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
 
 	@Override
 	public String getErrorPath() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@RequestMapping("/error")
-    public String handleError(HttpServletRequest request) {
-        // get error status
+    public String processError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
 
-            // display specific error page
-            if (statusCode == HttpStatus.NOT_FOUND.value()) {
+            if (statusCode == HttpStatus.FORBIDDEN.value()) {
+                return "403";
+            }else if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "404";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "500";
-            } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                return "403";
             }
         }
 
-        // display generic error
         return "error";
     }
 

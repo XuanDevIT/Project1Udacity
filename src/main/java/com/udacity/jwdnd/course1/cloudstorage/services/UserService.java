@@ -22,7 +22,7 @@ public class UserService implements UserServiceImpl {
         return userMapper.getUser(username) == null;
     }
 
-    public int createUser(User user) {
+    public int saveUser(User user) {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);

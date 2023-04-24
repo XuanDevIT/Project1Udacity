@@ -6,9 +6,6 @@ import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.CredentialServiceImpl;
 import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.FileServiceImpl;
 import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.NoteServiceImpl;
-import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
-import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
-import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -30,7 +27,7 @@ public class HomeController {
 	public String getHome(Authentication authentication, FileForm fileForm, NoteForm noteForm, CredentialForm credentialForm, Model model) {
 		model.addAttribute("files", uploadFileService.getAllFilesByUserId(authentication));
 		model.addAttribute("notes", noteService.getAllNotesByUserId(authentication));
-		model.addAttribute("credentials", credentialService.getAllCredentialByUserId(authentication));
+		model.addAttribute("credentials", credentialService.getAllCredential(authentication));
 		return "home";
 	}
 

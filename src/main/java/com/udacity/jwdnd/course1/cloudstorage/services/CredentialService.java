@@ -25,10 +25,15 @@ public class CredentialService implements CredentialServiceImpl {
 	private EncryptionService encryptionService;
 
 	@Override
-	public List<Credential> getAllCredentialByUserId(Authentication authentication) {
+	public void deleteCredential(Integer credentialId) {
+		credentialMapper.deleteCredential(credentialId);
+	}
+
+	@Override
+	public List<Credential> getAllCredential(Authentication authentication) {
 		String username = authentication.getName();
 		User user = userMapper.getUser(username);
-		List<Credential> credentials = credentialMapper.getAllCredentialsByUserId(user.getUserId());
+		List<Credential> credentials = credentialMapper.getAllCredential(user.getUserId());
 		String decryptedPassword;
 		for (Credential credential : credentials) {
 			decryptedPassword = encryptionService.decryptValue(credential.getPassword(), credential.getCredentialKey());
@@ -36,8 +41,9 @@ public class CredentialService implements CredentialServiceImpl {
 		}
 		return credentials;
 	}
+
 	@Override
-	public void upsertCredential(Authentication authentication, CredentialForm credentialForm) {
+	public void insertCredential(Authentication authentication, CredentialForm credentialForm) {
 		Credential credential = credentialMapper.getCredentialById(credentialForm.getCredentialId());
 		String username = authentication.getName();
 		User user = userMapper.getUser(username);
@@ -56,7 +62,7 @@ public class CredentialService implements CredentialServiceImpl {
 			credential.setPassword(encryptedPassword);
 			credential.setUserId(user.getUserId());
 
-			credentialMapper.addCredential(credential);
+			credentialMapper.insertCredential(credential);
 		} else {
 			String encryptedPassword = encryptionService.encryptValue(credentialForm.getPassword(), credential.getCredentialKey());
 			credential.setUrl(credentialForm.getUrl());
@@ -66,8 +72,4 @@ public class CredentialService implements CredentialServiceImpl {
 			credentialMapper.updateCredential(credential);
 		}
 	}
-	@Override
-	public void deleteCredential(Integer credentialId) {
-		credentialMapper.deleteCredential(credentialId);
 	}
-}

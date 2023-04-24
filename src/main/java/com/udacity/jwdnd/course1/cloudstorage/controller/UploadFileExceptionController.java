@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,11 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 public class UploadFileExceptionController {
 
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
-	public ModelAndView handleFileTooLarge(MaxUploadSizeExceededException exception, HttpServletRequest request,
+	public ModelAndView processFile(MaxUploadSizeExceededException exception, HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("result");
 		modelAndView.getModel().put("uploadError", true);
-		modelAndView.getModel().put("uploadErrorMessage", "Your upload file must be less than 128KB");
+		modelAndView.getModel().put("uploadErrorMessage", "File must be less than 128KB.");
 		return modelAndView;
 	}
 

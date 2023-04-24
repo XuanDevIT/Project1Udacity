@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public interface CredentialServiceImpl {
 
-    public List<Credential> getAllCredentialByUserId(Authentication authentication);
+    public List<Credential> getAllCredential(Authentication authentication);
 
-    public void upsertCredential(Authentication authentication, CredentialForm credentialForm);
+    public void insertCredential(Authentication authentication, CredentialForm credentialForm);
 
     public void deleteCredential(Integer credentialId);
 }

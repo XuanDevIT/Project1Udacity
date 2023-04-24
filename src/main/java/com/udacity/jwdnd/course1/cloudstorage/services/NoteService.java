@@ -28,7 +28,7 @@ public class NoteService implements NoteServiceImpl {
 	}
 
 	@Override
-	public void upsertNote(Authentication authentication, NoteForm noteForm) {
+	public void insertNote(Authentication authentication, NoteForm noteForm) {
 		Note note = noteMapper.getNoteByNoteId(noteForm.getNoteId());
 		if (note == null) {
 			// Add new credential
@@ -40,7 +40,7 @@ public class NoteService implements NoteServiceImpl {
 			note.setNoteDescription(noteForm.getNoteDescription());
 			note.setUserId(user.getUserId());
 
-			noteMapper.addNote(note);
+			noteMapper.insertNote(note);
 		} else {
 			// Update credential
 			note.setNoteTitle(noteForm.getNoteTitle());

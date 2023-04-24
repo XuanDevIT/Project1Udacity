@@ -11,7 +11,7 @@ import java.util.List;
 public interface NoteServiceImpl {
     public List<Note> getAllNotesByUserId(Authentication authentication);
 
-    public void upsertNote(Authentication authentication, NoteForm noteForm);
+    public void insertNote(Authentication authentication, NoteForm noteForm);
 
     public void deleteNote(Integer noteId);
 }
