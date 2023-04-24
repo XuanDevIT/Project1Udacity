@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.FileServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,13 +18,10 @@ import com.udacity.jwdnd.course1.cloudstorage.model.User;
 @Service
 public class FileService implements FileServiceImpl {
 
-    private final FileMapper fileMapper;
-    private final UserMapper userMapper;
-
-    public FileService(FileMapper fileMapper, UserMapper userMapper) {
-        this.fileMapper = fileMapper;
-        this.userMapper = userMapper;
-    }
+    @Autowired
+    private FileMapper fileMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     public int uploadFile(Authentication authentication, FileForm fileForm) throws IOException {
         MultipartFile multipartFile = fileForm.getFileData();

@@ -6,6 +6,7 @@ import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.model.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.NoteServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,10 @@ import java.util.List;
 @Service
 public class NoteService implements NoteServiceImpl {
 
-	private final NoteMapper noteMapper;
-	private final UserMapper userMapper;
-
-	public NoteService(NoteMapper noteMapper, UserMapper userMapper) {
-		this.noteMapper = noteMapper;
-		this.userMapper = userMapper;
-	}
+	@Autowired
+	private NoteMapper noteMapper;
+	@Autowired
+	private UserMapper userMapper;
 
 	@Override
 	public List<Note> getAllNotesByUserId(Authentication authentication) {

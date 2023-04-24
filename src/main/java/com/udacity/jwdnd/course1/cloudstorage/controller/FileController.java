@@ -2,8 +2,10 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileForm;
+import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.FileServiceImpl;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,11 +20,9 @@ import java.io.IOException;
 @Controller
 public class FileController {
 
-	private FileService fileService;
 
-	public FileController(FileService fileService) {
-		this.fileService = fileService;
-	}
+	@Autowired
+	private FileServiceImpl fileService;
 
 	@PostMapping("/upload")
 	public String uploadFile(Authentication authentication, FileForm fileForm, Model model) throws SizeLimitExceededException {

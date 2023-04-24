@@ -6,6 +6,7 @@ import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.model.CredentialForm;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.CredentialServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +17,12 @@ import java.util.List;
 @Service
 public class CredentialService implements CredentialServiceImpl {
 
-	private final CredentialMapper credentialMapper;
-	private final UserMapper userMapper;
+	@Autowired
+	private CredentialMapper credentialMapper;
+	@Autowired
+	private UserMapper userMapper;
+	@Autowired
 	private EncryptionService encryptionService;
-
-	public CredentialService(CredentialMapper credentialMapper, UserMapper userMapper,
-                             EncryptionService encryptionService) {
-		this.credentialMapper = credentialMapper;
-		this.userMapper = userMapper;
-		this.encryptionService = encryptionService;
-	}
 
 	@Override
 	public List<Credential> getAllCredentialByUserId(Authentication authentication) {
