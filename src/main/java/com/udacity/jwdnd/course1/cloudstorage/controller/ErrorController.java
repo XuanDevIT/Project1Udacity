@@ -15,10 +15,8 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
 	@RequestMapping("/error")
     public String processError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
-
             if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "403";
             }else if (statusCode == HttpStatus.NOT_FOUND.value()) {
@@ -27,7 +25,6 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
                 return "500";
             }
         }
-
         return "error";
     }
 

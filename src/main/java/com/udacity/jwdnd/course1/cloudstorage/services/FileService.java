@@ -23,6 +23,7 @@ public class FileService implements FileServiceImpl {
     @Autowired
     private UserMapper userMapper;
 
+    @Override
     public int uploadFile(Authentication authentication, FileForm fileForm) throws IOException {
         MultipartFile multipartFile = fileForm.getFileData();
         String username = authentication.getName();
@@ -44,17 +45,20 @@ public class FileService implements FileServiceImpl {
         return fileMapper.insert(file);
     }
 
-    public List<File> getAllFilesByUserId(Authentication authentication) {
+    @Override
+    public List<File> getAllFiles(Authentication authentication) {
         String username = authentication.getName();
         User user = userMapper.getUser(username);
-        return fileMapper.getAllFilesByUserId(user.getUserId());
+        return fileMapper.getAllFiles(user.getUserId());
     }
 
+    @Override
     public File getFileByFileId(Integer fileId) {
         return fileMapper.getFileByFileId(fileId);
     }
 
-    public void deleteFileByFileId(Integer fileId) {
+    @Override
+    public void deleteFile(Integer fileId) {
         fileMapper.delete(fileId);
     }
 }

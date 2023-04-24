@@ -14,9 +14,9 @@ public interface FileServiceImpl {
 
     public File getFileByFileId(Integer fileId);
 
-    public void deleteFileByFileId(Integer fileId);
+    public void deleteFile(Integer fileId);
 
-    public List<File> getAllFilesByUserId(Authentication authentication);
+    public List<File> getAllFiles(Authentication authentication);
 
     public int uploadFile(Authentication authentication, FileForm fileForm) throws IOException;
 

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-
 	@Autowired
 	private FileServiceImpl uploadFileService;
 	@Autowired
@@ -24,9 +23,9 @@ public class HomeController {
 	private CredentialServiceImpl credentialService;
 
 	@GetMapping("/home")
-	public String getHome(Authentication authentication, FileForm fileForm, NoteForm noteForm, CredentialForm credentialForm, Model model) {
-		model.addAttribute("files", uploadFileService.getAllFilesByUserId(authentication));
-		model.addAttribute("notes", noteService.getAllNotesByUserId(authentication));
+	public String home(Authentication authentication, FileForm fileForm, NoteForm noteForm, CredentialForm credentialForm, Model model) {
+		model.addAttribute("files", uploadFileService.getAllFiles(authentication));
+		model.addAttribute("notes", noteService.getAllNotes(authentication));
 		model.addAttribute("credentials", credentialService.getAllCredential(authentication));
 		return "home";
 	}

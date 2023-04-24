@@ -72,4 +72,4 @@ public class CredentialService implements CredentialServiceImpl {
 			credentialMapper.updateCredential(credential);
 		}
 	}
-	}
+}

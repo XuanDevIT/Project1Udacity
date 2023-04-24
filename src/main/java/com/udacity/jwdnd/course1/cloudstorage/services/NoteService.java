@@ -21,10 +21,10 @@ public class NoteService implements NoteServiceImpl {
 	private UserMapper userMapper;
 
 	@Override
-	public List<Note> getAllNotesByUserId(Authentication authentication) {
+	public List<Note> getAllNotes(Authentication authentication) {
 		String username = authentication.getName();
 		User user = userMapper.getUser(username);
-		return noteMapper.getAllNotesByUserId(user.getUserId());
+		return noteMapper.getAllNotes(user.getUserId());
 	}
 
 	@Override

@@ -40,6 +40,7 @@ public class CommonController {
                 signupError = "Error registration. Do it again.";
             }
         }
+
         if (signupError == null) {
             model.addAttribute("signupSuccess", true);
         } else {

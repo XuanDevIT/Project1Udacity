@@ -18,8 +18,6 @@ import java.io.IOException;
 
 @Controller
 public class FileController {
-
-
 	@Autowired
 	private FileServiceImpl fileService;
 
@@ -49,17 +47,17 @@ public class FileController {
 		return "result";
 	}
 
-	@GetMapping("/file/download/{fileId}")
-	public ResponseEntity<byte[]> downloadFile(@PathVariable Integer fileId) {
-		File file = fileService.getFileByFileId(fileId);
+	@GetMapping("/file/download/{id}")
+	public ResponseEntity<byte[]> downloadFile(@PathVariable Integer id) {
+		File file = fileService.getFileByFileId(id);
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
 				.body(file.getFileData());
 	}
 
-	@GetMapping("/file/delete/{fileId}")
-	public String deleteFile(@PathVariable Integer fileId) {
-		fileService.deleteFileByFileId(fileId);
+	@GetMapping("/file/delete/{id}")
+	public String deleteFile(@PathVariable Integer id) {
+		fileService.deleteFile(id);
 		return "redirect:/home";
 	}
 }

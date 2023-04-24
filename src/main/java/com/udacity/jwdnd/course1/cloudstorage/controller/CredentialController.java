@@ -21,7 +21,7 @@ public class CredentialController {
 		return "redirect:/home";
 	}
 
-	@PostMapping("/upsertCredential")
+	@PostMapping("/insertCredential")
 	public String insertCredential(Authentication authentication, CredentialForm credentialForm) {
 		credentialService.insertCredential(authentication, credentialForm);
 		return "redirect:/home";

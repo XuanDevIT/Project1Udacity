@@ -22,6 +22,7 @@ public class UserService implements UserServiceImpl {
         return userMapper.getUser(username) == null;
     }
 
+    @Override
     public int saveUser(User user) {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
@@ -32,6 +33,7 @@ public class UserService implements UserServiceImpl {
                 user.getLastName()));
     }
 
+    @Override
     public User getUser(String username) {
         return userMapper.getUser(username);
     }

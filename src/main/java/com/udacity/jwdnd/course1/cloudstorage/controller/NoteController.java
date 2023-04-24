@@ -16,7 +16,7 @@ public class NoteController {
 	@Autowired
 	private NoteServiceImpl noteService;
 
-	@PostMapping("/upsertNote")
+	@PostMapping("/insertNote")
 	public String insertNote(Authentication authentication, NoteForm noteForm) {
 		noteService.insertNote(authentication, noteForm);
 		return "redirect:/home";

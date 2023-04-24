@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface NoteServiceImpl {
-    public List<Note> getAllNotesByUserId(Authentication authentication);
+    public List<Note> getAllNotes(Authentication authentication);
 
     public void insertNote(Authentication authentication, NoteForm noteForm);
 
