@@ -3,7 +3,6 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,7 @@ public class CommonController {
     @Autowired
     private UserServiceImpl userService;
 
-    @GetMapping("/login")
+    @GetMapping({"/","/login"})
     public String loginView() {
         return "login";
     }
@@ -43,8 +42,10 @@ public class CommonController {
 
         if (signupError == null) {
             model.addAttribute("signupSuccess", true);
+           // return "redirect:login";
         } else {
             model.addAttribute("signupError", signupError);
+            //return "signup";
         }
 
         return "signup";
